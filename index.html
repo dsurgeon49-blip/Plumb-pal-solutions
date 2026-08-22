@@ -612,7 +612,45 @@ document.getElementById("proBtn").onclick = function() {
   });
 
 };
+findPlumber = async function () {
 
+  const status = document.getElementById("locationStatus");
+
+  status.innerText = language === "fr"
+
+    ? "Recherche des plombiers PlumbPal vérifiés..."
+
+    : "Finding verified PlumbPal plumbers...";
+
+  const { data, error } = await supabaseClient
+
+    .from("plumbers")
+
+    .select("*")
+
+    .eq("verified", true)
+
+    .eq("active", true);
+
+  if (error || !data || data.length === 0) {
+
+    status.innerText = language === "fr"
+
+      ? "Aucun plombier vérifié disponible."
+
+      : "No verified plumbers available.";
+
+    return;
+
+  }
+
+  status.innerText = data.map(p =>
+
+    `${p.business_name}\n${p.city || ""}\n${p.services || ""}\n${p.phone || ""}\n${p.email || ""}`
+
+  ).join("\n\n");
+
+};
 </script>
 
 </body>
