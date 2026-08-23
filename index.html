@@ -352,7 +352,7 @@
 <script>
 const SUPABASE_URL = "https://cgheurodmxrtoidgyifj.supabase.co";
 const SUPABASE_KEY = "sb_publishable_QMFf76v1plThZsY_4v8o7Q_Rl-9OnL0";
-const supabaseClient = supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const supabaseClient = null;
 
   let language = "en";
   function setLanguage(lang) {
@@ -640,7 +640,7 @@ findPlumber = async function () {
 
       ? "Aucun plombier vérifié disponible."
 
-      : "No verified plumbers available.";
+      : "No verified plumbers available.";i
 
     return;
 
@@ -653,6 +653,7 @@ findPlumber = async function () {
   ).join("\n\n");
 
 };
+findPlumber = function () { document.getElementByid("locationStatus").innerText = "PlumbPal button working"; };
 </script>
 
 </body>
