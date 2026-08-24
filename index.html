@@ -653,7 +653,149 @@ findPlumber = async function () {
   ).join("\n\n");
 
 };
+findPlumber = async function () {
 
+  const status = document.getElementById("locationStatus");
+
+  status.innerText = language === "fr"
+
+    ? "Recherche de votre position..."
+
+    : "Finding your location...";
+
+  if (!navigator.geolocation) {
+
+    status.innerText = language === "fr"
+
+      ? "La localisation n'est pas disponible sur cet appareil."
+
+      : "Location services are not available on this device.";
+
+    return;
+
+  }
+
+  navigator.geolocation.getCurrentPosition(async function(position) {
+
+    const userLat = position.coords.latitude;
+
+    const userLon = position.coords.longitude;
+
+    status.innerText = language === "fr"
+
+      ? "Recherche des plombiers dans un rayon de 50 km..."
+
+      : "Finding plumbers within 50 km...";
+
+    const { data, error } = await supabaseClient
+
+      .from("plumbers")
+
+      .select("*")
+
+      .eq("verified", true)
+
+      .eq("active", true);
+
+    if (error || !data) {
+
+      status.innerText = language === "fr"
+
+        ? "Impossible de rechercher les plombiers."
+
+        : "Unable to search for plumbers.";
+
+      return;
+
+    }
+
+    function distanceKm(lat1, lon1, lat2, lon2) {
+
+      const R = 6371;
+
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+
+      const a =
+
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+
+        Math.cos(lat1 * Math.PI / 180) *
+
+        Math.cos(lat2 * Math.PI / 180) *
+
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    }
+
+    const nearby = data
+
+      .filter(p => p.latitude != null && p.longitude != null)
+
+      .map(p => ({
+
+        ...p,
+
+        distance: distanceKm(
+
+          userLat,
+
+          userLon,
+
+          Number(p.latitude),
+
+          Number(p.longitude)
+
+        )
+
+      }))
+
+      .filter(p => p.distance <= 50)
+
+      .sort((a, b) => a.distance - b.distance);
+
+    if (nearby.length === 0) {
+
+      status.innerText = language === "fr"
+
+        ? "Aucun plombier PlumbPal vérifié dans un rayon de 50 km."
+
+        : "No verified PlumbPal plumbers found within 50 km.";
+
+      return;
+
+    }
+
+    status.innerText = nearby.map(p =>
+
+      `${p.business_name}
+
+${p.city || ""}
+
+${p.services || ""}
+
+${p.phone || ""}
+
+${p.email || ""}
+
+${p.distance.toFixed(1)} km away`
+
+    ).join("\n\n");
+
+  }, function() {
+
+    status.innerText = language === "fr"
+
+      ? "Autorisez l'accès à votre position pour trouver les plombiers à proximité."
+
+      : "Please allow location access to find plumbers near you.";
+
+  });
+
+};
 </script>
 
 </body>
