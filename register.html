@@ -226,15 +226,93 @@ Your business will be reviewed by PlumbPal before your profile becomes visible a
 
 <script>
 
-document.getElementById("registrationForm").addEventListener("submit",function(e){
+const SUPABASE_URL = "https://cgheurodmxrtoidgyifj.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_QMFf76v1plThZsY_4v8o7Q_Rl-9OnL0";
+
+document.getElementById("registrationForm").addEventListener("submit", async function(e) {
 
   e.preventDefault();
 
-  alert("Thank you. Your PlumbPal registration has been received for verification.");
+  const plumber = {
+
+    contact_name: document.getElementById("name").value.trim(),
+
+    business_name: document.getElementById("business").value.trim(),
+
+    phone: document.getElementById("phone").value.trim(),
+
+    email: document.getElementById("email").value.trim(),
+
+    city: document.getElementById("city").value.trim(),
+
+    postcode: document.getElementById("postcode").value.trim() || null,
+
+    country: "France",
+
+    services: document.getElementById("services").value.trim(),
+
+    emergency_callouts: document.getElementById("emergency").checked,
+
+    verified: false,
+
+    active: false
+
+  };
+
+  try {
+
+    const response = await fetch(SUPABASE_URL + "/rest/v1/plumbers", {
+
+      method: "POST",
+
+      headers: {
+
+        "apikey": SUPABASE_KEY,
+
+        "Authorization": "Bearer " + SUPABASE_KEY,
+
+        "Content-Type": "application/json",
+
+        "Prefer": "return=minimal"
+
+      },
+
+      body: JSON.stringify(plumber)
+
+    });
+
+    if (!response.ok) {
+
+      throw new Error(await response.text());
+
+    }
+
+    alert("Thank you. Your PlumbPal registration has been received and is awaiting verification.");
+
+    document.getElementById("registrationForm").reset();
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert("Sorry, your registration could not be submitted. Please try again.");
+
+  }
 
 });
 
 </script>
+
+
+
+  
+
+  
+
+
+
+
 
 </body>
 
