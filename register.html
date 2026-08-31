@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PlumbPal Professional Registration</title>
+
+<style>
+
+*{box-sizing:border-box}
+
+body{
+
+  margin:0;
+
+  font-family:Arial,Helvetica,sans-serif;
+
+  background:#f4f8fb;
+
+  color:#17324d;
+
+}
+
+header{
+
+  background:#347fd1;
+
+  color:white;
+
+  text-align:center;
+
+  padding:25px 15px;
+
+}
+
+main{
+
+  max-width:700px;
+
+  margin:25px auto;
+
+  padding:0 18px;
+
+}
+
+.card{
+
+  background:white;
+
+  padding:25px;
+
+  border-radius:20px;
+
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+}
+
+h2{margin-top:0}
+
+label{
+
+  display:block;
+
+  font-weight:bold;
+
+  margin-top:18px;
+
+  margin-bottom:6px;
+
+}
+
+input,textarea{
+
+  width:100%;
+
+  padding:14px;
+
+  font-size:16px;
+
+  border:1px solid #ccd6df;
+
+  border-radius:10px;
+
+}
+
+textarea{
+
+  min-height:110px;
+
+  resize:vertical;
+
+}
+
+button{
+
+  width:100%;
+
+  margin-top:25px;
+
+  padding:16px;
+
+  border:0;
+
+  border-radius:12px;
+
+  background:#3e915e;
+
+  color:white;
+
+  font-size:18px;
+
+  font-weight:bold;
+
+}
+
+.note{
+
+  background:#fff3d9;
+
+  padding:15px;
+
+  border-radius:12px;
+
+  margin-top:20px;
+
+}
+
+.back{
+
+  display:block;
+
+  text-align:center;
+
+  margin-top:20px;
+
+  color:#347fd1;
+
+  text-decoration:none;
+
+  font-weight:bold;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>🔧 PlumbPal</h1>
+
+<p>Professional Registration</p>
+
+</header>
+
+<main>
+
+<div class="card">
+
+<h2>Join PlumbPal</h2>
+
+<p>Register your plumbing business to receive local customer enquiries.</p>
+
+<form id="registrationForm">
+
+<label>Your Name</label>
+
+<input type="text" id="name" required>
+
+<label>Business Name</label>
+
+<input type="text" id="business" required>
+
+<label>Telephone</label>
+
+<input type="tel" id="phone" required>
+
+<label>Email</label>
+
+<input type="email" id="email" required>
+
+<label>Town / City</label>
+
+<input type="text" id="city" required>
+
+<label>Postcode</label>
+
+<input type="text" id="postcode">
+
+<label>Services You Provide</label>
+
+<textarea id="services" placeholder="General plumbing, emergencies, bathrooms, tiling..."></textarea>
+
+<label>
+
+<input type="checkbox" id="emergency" style="width:auto">
+
+ Available for emergency call-outs
+
+</label>
+
+<div class="note">
+
+<strong>Verification required</strong><br>
+
+Your business will be reviewed by PlumbPal before your profile becomes visible and before you can receive customer leads.
+
+</div>
+
+<button type="submit">Submit Registration</button>
+
+</form>
+
+<a class="back" href="index.html">← Back to PlumbPal</a>
+
+</div>
+
+</main>
+
+<script>
+
+document.getElementById("registrationForm").addEventListener("submit",function(e){
+
+  e.preventDefault();
+
+  alert("Thank you. Your PlumbPal registration has been received for verification.");
+
+});
+
+</script>
+
+</body>
+
+</html>
