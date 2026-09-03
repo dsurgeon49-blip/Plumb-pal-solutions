@@ -773,20 +773,54 @@ findPlumber = async function () {
 
     status.innerText = nearby.map(p =>
 
-      `${p.business_name}
+      
 
-${p.city || ""}
 
-${p.services || ""}
 
-${p.phone || ""}
 
-${p.email || ""}
 
-${p.distance.toFixed(1)} km away`
 
-  ).join("\n\n--------------------\n\n");
 
+
+
+
+
+  
+status.innerText = "";
+
+nearby.forEach(p => {
+
+  const card = document.createElement("div");
+
+  card.className = "plumber-card";
+
+  const name = document.createElement("strong");
+
+  name.textContent = p.business_name || "";
+
+  card.appendChild(name);
+
+  const details = document.createElement("div");
+
+  details.textContent =
+
+    `${p.city || ""}\n` +
+
+    `${p.services || ""}\n` +
+
+    `${p.phone || ""}\n` +
+
+    `${p.email || ""}\n` +
+
+    `${p.distance.toFixed(1)} km away`;
+
+  details.style.whiteSpace = "pre-line";
+
+  card.appendChild(details);
+
+  status.appendChild(card);
+
+});
   }, function() {
 
     status.innerText = language === "fr"
