@@ -193,7 +193,18 @@ button{
 <label>Postcode</label>
 
 <input type="text" id="postcode">
+<label>Country</label>
 
+<select id="country" required>
+
+  <option value="FR">France</option>
+
+  <option value="GB">United Kingdom</option>
+
+</select>
+<label>Business Registration Number</label>
+
+<input type="text" id="registration_number" placeholder="SIRET / SIREN / Company number">
 <label>Services You Provide</label>
 
 <textarea id="services" placeholder="General plumbing, emergencies, bathrooms, tiling..."></textarea>
@@ -247,8 +258,8 @@ document.getElementById("registrationForm").addEventListener("submit", async fun
     city: document.getElementById("city").value.trim(),
 
     postcode: document.getElementById("postcode").value.trim() || null,
-
-    country: "France",
+registration_number: document.getElementById("registration_number").value,
+    country: document.getElementById("country").value,
 
     services: document.getElementById("services").value.trim(),
 
