@@ -771,7 +771,7 @@ findPlumber = async function () {
 
     }
 
-    status.innerText = nearby.map(p =>
+    status.innerText = nearby.map(p =>'${p.business_name} - ${p.distance.toF(1)} km').join("\n");
 
       
 
