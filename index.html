@@ -1,638 +1,838 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>PlumbPal Solutions</title>
- <script> const SUPABASE_KEY = 'sb_publishable_QMFf76v1plThZsY_4v8o7Q_Rl-9OnL0';
- const SUPABASE_URL = 'https://cgheurodmxrtoidgyifj.supabase.co
- </script>
 
   <style>
-
     * {
-
       box-sizing: border-box;
-
       margin: 0;
-
       padding: 0;
-
     }
 
     body {
-
       font-family: Arial, Helvetica, sans-serif;
-
       background: #f4f8fb;
-
       color: #17324d;
-
       line-height: 1.5;
-
     }
 
     header {
-
-      background: linear-gradient(135deg, #087f5b, #12a36d);
-
+      background: linear-gradient(135deg, #0878d1, #0057a8);
       color: white;
-
-      padding: 26px 18px;
-
+      padding: 22px 18px;
       text-align: center;
-
     }
 
-    header h1 {
-
+    .logo {
       font-size: 32px;
-
-      margin-bottom: 8px;
-
+      font-weight: 800;
     }
 
-    header p {
-
-      font-size: 17px;
-
+    .tagline {
+      margin-top: 6px;
+      font-size: 15px;
+      opacity: 0.95;
     }
 
-    .container {
+    .language {
+      margin-top: 15px;
+    }
 
+    .language button {
+      border: 1px solid white;
+      background: white;
+      color: #0568b9;
+      padding: 8px 13px;
+      margin: 3px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    main {
       max-width: 850px;
-
       margin: auto;
+      padding: 18px;
+    }
 
-      padding: 20px;
+    .hero {
+      background: white;
+      border-radius: 18px;
+      padding: 25px 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      text-align: center;
+    }
 
+    .hero h1 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: #526b82;
+      margin-bottom: 20px;
+    }
+
+    .main-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .main-buttons button {
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .homeowner {
+      background: #0878d1;
+      color: white;
+    }
+
+    .professional {
+      background: #e5f2fc;
+      color: #0668b5;
     }
 
     .card {
-
       background: white;
-
-      border-radius: 15px;
-
-      padding: 22px;
-
-      margin-bottom: 20px;
-
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.07);
     }
 
-    h2 {
-
-      color: #087f5b;
-
-      margin-bottom: 12px;
-
-    }
-
-    h3 {
-
+    .card h2 {
       margin-bottom: 8px;
-
+      font-size: 21px;
     }
 
-    p {
-
-      margin-bottom: 12px;
-
-    }
-
-    button,
-
-    .button {
-
-      display: block;
-
-      width: 100%;
-
-      background: #0b8f61;
-
-      color: white;
-
-      border: none;
-
-      border-radius: 10px;
-
-      padding: 15px;
-
-      font-size: 17px;
-
-      font-weight: bold;
-
-      text-align: center;
-
-      text-decoration: none;
-
-      margin-top: 12px;
-
-      cursor: pointer;
-
-    }
-
-    button:hover,
-
-    .button:hover {
-
-      background: #08754f;
-
-    }
-
-    .secondary {
-
-      background: #245f8f;
-
+    .card p {
+      color: #587087;
+      margin-bottom: 14px;
     }
 
     .emergency {
-
-      background: #c0392b;
-
+      border-left: 6px solid #e33e32;
     }
 
-    .plumber {
-
-      border: 1px solid #dce6ec;
-
-      border-radius: 12px;
-
-      padding: 18px;
-
-      margin-top: 16px;
-
+    .emergency h2 {
+      color: #c72d24;
     }
 
-    .verified {
+    select,
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccd8e2;
+      border-radius: 10px;
+      margin: 8px 0 12px;
+      font-size: 16px;
+      background: white;
+    }
 
-      display: inline-block;
-
-      background: #daf5e7;
-
-      color: #087f5b;
-
-      padding: 5px 10px;
-
-      border-radius: 20px;
-
-      font-size: 14px;
-
+    .action-button {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      background: #0878d1;
+      color: white;
+      padding: 14px;
+      font-size: 16px;
       font-weight: bold;
-
-      margin-bottom: 10px;
-
+      cursor: pointer;
     }
 
-    .hidden {
+    .green-button {
+      background: #198754;
+    }
 
+    .red-button {
+      background: #d9362b;
+    }
+
+    #advice {
       display: none;
-
+      background: #eef7ff;
+      padding: 15px;
+      border-radius: 12px;
+      margin-top: 14px;
     }
 
     #locationStatus {
+      margin-top: 12px;
+      font-size: 14px;
+    }
 
-      margin-top: 14px;
+    .steps {
+      margin: 12px 0 12px 20px;
+      color: #435f78;
+    }
 
-      font-weight: bold;
-
+    .warning {
+      background: #fff4df;
+      border-radius: 10px;
+      padding: 12px;
+      margin-top: 12px;
+      color: #70531d;
+      font-size: 14px;
     }
 
     footer {
-
       text-align: center;
-
-      padding: 30px 20px;
-
-      color: #617181;
-
-      font-size: 14px;
-
+      padding: 25px 15px;
+      color: #71869a;
+      font-size: 13px;
     }
 
-    .small {
+    @media(max-width: 520px) {
+      .main-buttons {
+        grid-template-columns: 1fr;
+      }
 
-      font-size: 14px;
-
-      color: #64748b;
-
+      .logo {
+        font-size: 28px;
+      }
     }
-
   </style>
-
 </head>
 
 <body>
 
 <header>
+  <div class="logo">🔧 PlumbPal Solutions</div>
+  <div class="tagline" id="tagline">
+    Plumbing help when you need it
+  </div>
 
-  <h1>🔧 PlumbPal Solutions</h1>
-
-  <p>Plumbing help for homeowners and professionals</p>
-
+  <div class="language">
+    <button onclick="setLanguage('en')">English</button>
+    <button onclick="setLanguage('fr')">Français</button>
+  </div>
 </header>
 
-<div class="container">
+<main>
 
-  <div class="card">
+  <section class="hero">
+    <h1 id="welcome">How can PlumbPal help?</h1>
 
-    <h2>What do you need help with?</h2>
+    <p id="welcomeText">
+      Get help with plumbing problems or find a local professional.
+    </p>
 
-    <p>Get plumbing guidance or find a local plumber.</p>
+    <div class="main-buttons">
+      <button class="homeowner" id="homeBtn">
+        🏠 I'm a Homeowner
+      </button>
 
-    <button onclick="showHelp()">
+      <button class="professional" id="proBtn">
+        🧰 I'm a Professional
+      </button>
+    </div>
+  </section>
 
-      🔧 Plumbing Help
 
-    </button>
+  <section class="card emergency">
 
-    <button onclick="findPlumber()">
-
-      📍 Find a Plumber Near Me
-
-    </button>
-
-    <a class="button secondary" href="register.html">
-
-      👷 Register as a Plumber
-
-    </a>
-
-  </div>
-
-  <div id="helpSection" class="card hidden">
-
-    <h2>Plumbing Help</h2>
-
-    <button onclick="showAdvice('leak')">
-
-      💧 Water Leak
-
-    </button>
-
-    <button onclick="showAdvice('blocked')">
-
-      🚽 Blocked Toilet or Drain
-
-    </button>
-
-    <button onclick="showAdvice('tap')">
-
-      🚰 Dripping Tap
-
-    </button>
-
-    <button onclick="showAdvice('pressure')">
-
-      🚿 Low Water Pressure
-
-    </button>
-
-    <button class="emergency" onclick="showAdvice('emergency')">
-
+    <h2 id="emergencyTitle">
       🚨 Plumbing Emergency
+    </h2>
 
+    <p id="emergencyText">
+      If water is escaping quickly, protect your property first.
+    </p>
+
+    <ol class="steps">
+      <li id="step1">Turn off the nearest isolation valve if possible.</li>
+      <li id="step2">If necessary, turn off the property's main water supply.</li>
+      <li id="step3">Turn off electricity near serious flooding if safe to do so.</li>
+      <li id="step4">Contact a qualified plumber.</li>
+    </ol>
+
+    <button
+      class="action-button red-button"
+      id="emergencyPlumber"
+      onclick="findPlumber()">
+      Find an Emergency Plumber
     </button>
 
-    <div id="adviceBox" style="margin-top:20px;"></div>
+  </section>
 
-  </div>
 
-  <div id="plumberSection" class="card hidden">
+  <section class="card">
 
-    <h2>Plumbers Near You</h2>
+    <h2 id="assistantTitle">
+      🤖 PlumbPal Assistant
+    </h2>
 
-    <p id="locationStatus">
-
-      Checking your location...
-
+    <p id="assistantText">
+      Choose the problem that best describes what is happening.
     </p>
 
-    <div class="plumber">
+    <select id="problem">
+      <option value="">Choose a plumbing problem</option>
+      <option value="leak">Leaking pipe</option>
+      <option value="tap">Dripping tap</option>
+      <option value="toilet">Toilet not flushing</option>
+      <option value="blocked">Blocked sink or drain</option>
+      <option value="pressure">Low water pressure</option>
+      <option value="hotwater">No hot water</option>
+    </select>
 
-      <span class="verified">✓ Verified Plumber</span>
+    <button class="action-button" onclick="getAdvice()" id="adviceButton">
+      Get Plumbing Advice
+    </button>
 
-      <h3>DS Plumbing Services</h3>
+    <div id="advice"></div>
 
-      <p>
-
-        📍 Labatut-Rivière 65700
-
-      </p>
-
-      <p>
-
-        General plumbing, emergencies, bathroom installation,
-
-        wetwall and tiling.
-
-      </p>
-
-      <p><strong>No job too small.</strong></p>
-
-      <p>
-
-        🚨 Emergency call-outs available
-
-      </p>
-
-      <a class="button" href="tel:+33679098982">
-
-        📞 Call DS Plumbing Services
-
-      </a>
-
-      <a class="button secondary"
-
-         href="mailto:dsurgeon49@gmail.com">
-
-        ✉️ Email
-
-      </a>
-
+    <div class="warning" id="warning">
+      PlumbPal provides general guidance only. If you are unsure, there is major
+      flooding, electrical danger, gas involvement or a serious safety risk,
+      contact an appropriately qualified professional.
     </div>
 
-    <div class="plumber">
+  </section>
 
-      <h3>Leaky Plumber</h3>
 
-      <p>
+  <section class="card">
 
-        Local plumbing services.
+    <h2 id="findTitle">
+      📍 Find a Local Plumber
+    </h2>
 
-      </p>
-
-      <p class="small">
-
-        Plumber verification details to be completed.
-
-      </p>
-
-    </div>
-
-  </div>
-
-  <div class="card">
-
-    <h2>For Homeowners</h2>
-
-    <p>
-
-      PlumbPal helps you understand common plumbing problems
-
-      and connect with local plumbing professionals.
-
+    <p id="findText">
+      Find plumbing professionals near your current location.
     </p>
 
-  </div>
+    <button
+      class="action-button green-button"
+      onclick="findPlumber()"
+      id="findButton">
+      Find Plumbers Near Me
+    </button>
 
-  <div class="card">
+    <div id="locationStatus"></div>
 
-    <h2>For Plumbers</h2>
+  </section>
 
-    <p>
 
-      Join PlumbPal and receive enquiries from customers in
+  <section class="card">
 
-      your local area.
+    <h2 id="professionalTitle">
+      🧰 For Plumbing Professionals
+    </h2>
 
+    <p id="professionalText">
+      Join PlumbPal to receive local customer enquiries and grow your business.
     </p>
 
-    <a class="button" href="register.html">
+    <button class="action-button" onclick="professionalSignup()" id="joinButton">
+      Register as a Professional
+    </button>
 
-      Register Your Plumbing Business
+  </section>
 
-    </a>
+</main>
 
-  </div>
-
-  <div class="card">
-
-    <h2>Important</h2>
-
-    <p class="small">
-
-      PlumbPal Solutions provides information and a way for
-
-      customers and plumbing professionals to connect.
-
-      Customers should confirm qualifications, insurance,
-
-      licences and suitability directly with the plumber
-
-      before agreeing to any work.
-
-    </p>
-
-  </div>
-
-</div>
 
 <footer>
-
+  <strong>PlumbPal Solutions</strong><br>
+  Helping homeowners connect with plumbing solutions and local professionals.<br><br>
   © 2026 PlumbPal Solutions
-
 </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+const SUPABASE_URL = "https://cgheurodmxrtoidgyifj.supabase.co";
+const SUPABASE_KEY = "sb_publishable_QMFf76v1plThZsY_4v8o7Q_Rl-9OnL0";
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  function showHelp() {
+  let language = "en";
+  function setLanguage(lang) {
 
-    const section = document.getElementById("helpSection");
+  language = lang;
 
-    section.classList.remove("hidden");
+  if (lang === "fr") {
 
-    section.scrollIntoView({
+    document.documentElement.lang = "fr";
 
-      behavior: "smooth"
+    document.getElementById("tagline").innerText =
+      "Une aide plomberie quand vous en avez besoin";
 
-    });
+    document.getElementById("welcome").innerText =
+      "Comment PlumbPal peut-il vous aider ?";
 
-  }
-async function findPlumber() {
+    document.getElementById("welcomeText").innerText =
+      "Obtenez de l'aide pour vos problèmes de plomberie ou trouvez un professionnel local.";
 
-  const section = document.getElementById("plumberSection");
+    document.getElementById("homeBtn").innerText =
+      "🏠 Je suis particulier";
 
-  section.classList.remove("hidden");
+    document.getElementById("proBtn").innerText =
+      "🧰 Je suis professionnel";
 
-  section.innerHTML = "<h2>Plumbers Near You</h2><p>Loading plumbers...</p>";
+    document.getElementById("emergencyTitle").innerText =
+      "🚨 Urgence plomberie";
 
-  try {
+    document.getElementById("emergencyText").innerText =
+      "Si de l'eau s'échappe rapidement, protégez d'abord votre logement.";
 
-    const response = await fetch(
+    document.getElementById("step1").innerText =
+      "Fermez le robinet d'arrêt le plus proche si possible.";
 
-      SUPABASE_URL + "/rest/v1/plumbers?select=*"
+    document.getElementById("step2").innerText =
+      "Si nécessaire, coupez l'arrivée d'eau principale.";
 
-      {
+    document.getElementById("step3").innerText =
+      "Coupez l'électricité près d'une inondation importante si cela peut être fait en toute sécurité.";
 
-        headers: {
+    document.getElementById("step4").innerText =
+      "Contactez un plombier qualifié.";
 
-          apikey: SUPABASE_KEY
+    document.getElementById("emergencyPlumber").innerText =
+      "Trouver un plombier en urgence";
 
-          
+    document.getElementById("assistantTitle").innerText =
+      "🤖 Assistant PlumbPal";
 
-        }
+    document.getElementById("assistantText").innerText =
+      "Choisissez le problème qui correspond le mieux à votre situation.";
 
-      }
+    document.getElementById("problem").innerHTML = `
+      <option value="">Choisissez un problème</option>
+      <option value="leak">Fuite de canalisation</option>
+      <option value="tap">Robinet qui goutte</option>
+      <option value="toilet">WC qui ne fonctionne pas</option>
+      <option value="blocked">Évier ou évacuation bouché</option>
+      <option value="pressure">Faible pression d'eau</option>
+      <option value="hotwater">Pas d'eau chaude</option>
+    `;
 
-    );
+    document.getElementById("adviceButton").innerText =
+      "Obtenir des conseils";
 
-    const plumbers = await response.json();
+    document.getElementById("warning").innerText =
+      "PlumbPal fournit uniquement des conseils généraux. En cas de doute, d'inondation importante, de danger électrique, de problème lié au gaz ou de risque sérieux, contactez un professionnel qualifié.";
 
-    if (!response.ok) {
+    document.getElementById("findTitle").innerText =
+      "📍 Trouver un plombier local";
 
-      throw new Error("Could not load plumbers");
+    document.getElementById("findText").innerText =
+      "Trouvez des professionnels de la plomberie près de votre position.";
 
-    }
+    document.getElementById("findButton").innerText =
+      "Trouver des plombiers près de moi";
 
-    if (plumbers.length === 0) {
+    document.getElementById("professionalTitle").innerText =
+      "🧰 Pour les professionnels";
 
-      section.innerHTML =
+    document.getElementById("professionalText").innerText =
+      "Rejoignez PlumbPal pour recevoir des demandes de clients locaux et développer votre activité.";
 
-        "<h2>Plumbers Near You</h2><p>No plumbers available yet.</p>";
+    document.getElementById("joinButton").innerText =
+      "S'inscrire comme professionnel";
 
-      return;
+  } else {
 
-    }
-
-    let html = "<h2>Plumbers Near You</h2>";
-
-    plumbers.forEach(function (p) {
-
-      html += `
-
-        <div class="plumber">
-
-          <h3>${p.business_name || "Local Plumber"}</h3>
-
-          <p>
-
-            ${p.verified ? "✅ Verified Plumber" : "⏳ Verification pending"}
-
-          </p>
-
-          <p>📍 ${p.city || ""} ${p.postcode || ""}</p>
-
-          <p>${p.services || ""}</p>
-
-          ${p.phone ? `<a class="button" href="tel:${p.phone}">📞 Call</a>` : ""}
-
-          ${p.email ? `<a class="button secondary" href="mailto:${p.email}">✉️ Email</a>` : ""}
-
-        </div>
-
-      `;
-
-    });
-
-    section.innerHTML = html;
-
-    section.scrollIntoView({ behavior: "smooth" });
-
-  } catch (error) {
-
-    section.innerHTML =
-
-      "<h2>Plumbers Near You</h2><p>Unable to load plumbers at the moment.</p>";
+    location.reload();
 
   }
 
 }
 
 
-      
+function getAdvice() {
 
-    
+  const problem = document.getElementById("problem").value;
+  const advice = document.getElementById("advice");
 
+  if (!problem) {
+
+    advice.style.display = "block";
+
+    advice.innerHTML =
+      language === "fr"
+      ? "<strong>Veuillez choisir un problème.</strong>"
+      : "<strong>Please choose a plumbing problem.</strong>";
+
+    return;
+  }
+
+
+  const adviceEN = {
+
+    leak:
+      "<strong>Leaking pipe:</strong><br>Turn off the nearest isolation valve or main water supply. Place a container beneath the leak and protect nearby belongings. Avoid attempting repairs to pressurised pipework. Contact a plumber if the leak cannot be safely isolated.",
+
+    tap:
+      "<strong>Dripping tap:</strong><br>Check that the tap is fully closed without forcing it. A worn washer, cartridge or valve is a common cause. Isolate the water before dismantling any tap.",
+
+    toilet:
+      "<strong>Toilet not flushing:</strong><br>Check whether the cistern is filling with water. If it is empty, check the isolation valve beside the toilet. If the cistern fills but will not flush, the flush mechanism may need adjustment or replacement.",
+
+    blocked:
+      "<strong>Blocked sink or drain:</strong><br>Stop running water into the blocked fixture. Remove visible debris if safe. A plunger may help with a simple blockage. Avoid mixing different chemical drain cleaners.",
+
+    pressure:
+      "<strong>Low water pressure:</strong><br>Check whether the problem affects one outlet or the whole property. Make sure isolation valves are fully open and check tap aerators for debris. A sudden property-wide pressure drop may require professional investigation.",
+
+    hotwater:
+      "<strong>No hot water:</strong><br>Check whether other hot taps are affected. Check the boiler or water heater for warning lights or error messages. Do not remove covers or work on gas or electrical components unless properly qualified."
+
+  };
+
+
+  const adviceFR = {
+
+    leak:
+      "<strong>Fuite de canalisation :</strong><br>Fermez le robinet d'arrêt le plus proche ou l'arrivée d'eau principale. Placez un récipient sous la fuite et protégez les objets à proximité. Contactez un plombier si la fuite ne peut pas être isolée en toute sécurité.",
+
+    tap:
+      "<strong>Robinet qui goutte :</strong><br>Vérifiez que le robinet est correctement fermé sans le forcer. Un joint, une cartouche ou un mécanisme usé peut être en cause. Coupez l'eau avant tout démontage.",
+
+    toilet:
+      "<strong>WC qui ne fonctionne pas :</strong><br>Vérifiez si le réservoir se remplit. S'il est vide, vérifiez le robinet d'arrêt. Si le réservoir se remplit mais ne se vide pas, le mécanisme de chasse peut nécessiter un réglage ou un remplacement.",
+
+    blocked:
+      "<strong>Évacuation bouchée :</strong><br>Arrêtez d'utiliser l'appareil concerné. Retirez les débris visibles si cela peut être fait en sécurité. Une ventouse peut aider pour un bouchon simple. Ne mélangez jamais différents déboucheurs chimiques.",
+
+    pressure:
+      "<strong>Faible pression :</strong><br>Vérifiez si le problème concerne un seul robinet ou toute la maison. Vérifiez que les robinets d'arrêt sont ouverts et nettoyez les mousseurs. Une baisse soudaine généralisée peut nécessiter l'intervention d'un professionnel.",
+
+    hotwater:
+      "<strong>Pas d'eau chaude :</strong><br>Vérifiez si tous les robinets d'eau chaude sont concernés. Contrôlez les voyants ou messages d'erreur de la chaudière ou du chauffe-eau. N'intervenez pas sur les éléments gaz ou électriques sans qualification appropriée."
+
+  };
+
+
+  advice.style.display = "block";
+
+  advice.innerHTML =
+    language === "fr"
+    ? adviceFR[problem]
+    : adviceEN[problem];
+
+}
+
+
+function findPlumber() {
+
+  const status = document.getElementById("locationStatus");
+
+  status.innerText =
+    language === "fr"
+    ? "Recherche de votre position..."
+    : "Finding your location...";
+
+
+  if (!navigator.geolocation) {
+
+    status.innerText =
+      language === "fr"
+      ? "La localisation n'est pas disponible sur cet appareil."
+      : "Location services are not available on this device.";
+
+    return;
+  }
+
+
+  navigator.geolocation.getCurrentPosition(
+
+    function(position) {
+
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      status.innerText =
+        language === "fr"
+        ? "Position trouvée. Ouverture des plombiers à proximité..."
+        : "Location found. Opening nearby plumbers...";
+
+      const query =
+        encodeURIComponent("plumber near " + latitude + "," + longitude);
+
+      window.open(
+        "https://www.google.com/maps/search/?api=1&query=" + query,
+        "_self"
+      );
+
+    },
+
+    function() {
+
+      status.innerText =
+        language === "fr"
+        ? "Autorisez l'accès à votre position pour trouver les plombiers à proximité."
+        : "Please allow location access to find plumbers near you.";
+
+    }
+
+  );
+
+}
+
+
+function professionalSignup() {
+  window.location.href = "register.html"; return;
   
 
-  function showAdvice(problem) {
+  if (language === "fr") {
 
-    const box =
+    alert(
+      "L'inscription des professionnels arrive bientôt. Les plombiers devront être vérifiés avant de pouvoir recevoir des demandes clients."
+    );
 
-      document.getElementById("adviceBox");
+  } else {
 
-    let message = "";
-
-    if (problem === "leak") {
-
-      message =
-
-        "<h3>💧 Water Leak</h3>" +
-
-        "<p>Turn off the nearest isolation valve if possible. " +
-
-        "If the leak continues, turn off the property's main water supply. " +
-
-        "Use towels or a container to limit water damage and contact a plumber if required.</p>";
-
-    }
-
-    if (problem === "blocked") {
-
-      message =
-
-        "<h3>🚽 Blocked Toilet or Drain</h3>" +
-
-        "<p>Stop flushing if the water level is rising. " +
-
-        "Try a plunger first. Avoid repeatedly adding chemical drain cleaner. " +
-
-        "If several fixtures are backing up, contact a plumber.</p>";
-
-    }
-
-    if (problem === "tap") {
-
-      message =
-
-        "<h3>🚰 Dripping Tap</h3>" +
-
-        "<p>A dripping tap is commonly caused by a worn washer, cartridge or seal. " +
-
-        "Turn off the water supply before dismantling the tap.</p>";
-
-    }
-
-    if (problem === "pressure") {
-
-      message =
-
-        "<h3>🚿 Low Water Pressure</h3>" +
-
-        "<p>Check whether the problem affects one fixture or the whole property. " +
-
-        "Clean shower heads and tap aerators first. " +
-
-        "If pressure is low throughout the property, professional investigation may be needed.</p>";
-
-    }
-
-    if (problem === "emergency") {
-
-      message =
-
-        "<h3>🚨 Plumbing Emergency</h3>" +
-
-        "<p><strong>If water is escaping uncontrollably, turn off the main water supply immediately.</strong></p>" +
-
-        "<p>If water is close to electrical equipment, avoid touching the affected area and seek appropriate emergency assistance.</p>";
-
-    }
-
-    box.innerHTML = message;
+    alert(
+      "Professional registration is coming next. Plumbers will need to be verified before they can receive customer leads."
+    );
 
   }
 
+}
+
+
+document.getElementById("homeBtn").onclick = function() {
+
+  document.getElementById("assistantTitle").scrollIntoView({
+    behavior: "smooth"
+  });
+
+};
+
+
+document.getElementById("proBtn").onclick = function() {
+
+  document.getElementById("professionalTitle").scrollIntoView({
+    behavior: "smooth"
+  });
+
+};
+findPlumber = async function () {
+
+  const status = document.getElementById("locationStatus");
+
+  status.innerText = language === "fr"
+
+    ? "Recherche des plombiers PlumbPal vérifiés..."
+
+    : "Finding verified PlumbPal plumbers...";
+
+  const { data, error } = await supabaseClient
+
+    .from("plumbers")
+
+    .select("*")
+
+    .eq("verified", true)
+
+    .eq("active", true);
+
+  if (error || !data || data.length === 0) {
+
+    status.innerText = language === "fr"
+
+      ? "Aucun plombier vérifié disponible."
+
+      : "No verified plumbers available.";i
+
+    return;
+
+  }
+
+  status.innerText = data.map(p =>
+
+    `${p.business_name}\n${p.city || ""}\n${p.services || ""}\n${p.phone || ""}\n${p.email || ""}`
+
+).join("\n\n--------------------\n\n");  
+
+};
+findPlumber = async function () {
+
+  const status = document.getElementById("locationStatus");
+
+  status.innerText = language === "fr"
+
+    ? "Recherche de votre position..."
+
+    : "Finding your location...";
+
+  if (!navigator.geolocation) {
+
+    status.innerText = language === "fr"
+
+      ? "La localisation n'est pas disponible sur cet appareil."
+
+      : "Location services are not available on this device.";
+
+    return;
+
+  }
+
+  navigator.geolocation.getCurrentPosition(async function(position) {
+
+    const userLat = position.coords.latitude;
+
+    const userLon = position.coords.longitude;
+
+    status.innerText = language === "fr"
+
+      ? "Recherche des plombiers dans un rayon de 50 km..."
+
+      : "Finding plumbers within 50 km...";
+
+    const { data, error } = await supabaseClient
+
+      .from("plumbers")
+
+      .select("*")
+
+      .eq("verified", true)
+
+      .eq("active", true);
+
+    if (error || !data) {
+
+      status.innerText = language === "fr"
+
+        ? "Impossible de rechercher les plombiers."
+
+        : "Unable to search for plumbers.";
+
+      return;
+
+    }
+
+    function distanceKm(lat1, lon1, lat2, lon2) {
+
+      const R = 6371;
+
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+
+      const a =
+
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+
+        Math.cos(lat1 * Math.PI / 180) *
+
+        Math.cos(lat2 * Math.PI / 180) *
+
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    }
+
+    const nearby = data
+
+      .filter(p => p.latitude != null && p.longitude != null)
+
+      .map(p => ({
+
+        ...p,
+
+        distance: distanceKm(
+
+          userLat,
+
+          userLon,
+
+          Number(p.latitude),
+
+          Number(p.longitude)
+
+        )
+
+      }))
+
+      .filter(p => p.distance <= 50)
+
+      .sort((a, b) => a.distance - b.distance);
+
+    if (nearby.length === 0) {
+
+      status.innerText = language === "fr"
+
+        ? "Aucun plombier PlumbPal vérifié dans un rayon de 50 km."
+
+        : "No verified PlumbPal plumbers found within 50 km.";
+
+      return;
+
+    }
+
+    status.innerText = nearby.map(p =>'${p.business_name} - ${p.distance.toF(1)} km').join("\n");
+
+      
+
+
+
+
+
+
+
+
+
+
+
+  
+status.innerText = "";
+
+nearby.forEach(p => {
+
+  const card = document.createElement("div");
+
+  card.className = "plumber-card";
+
+  const name = document.createElement("strong");
+
+  name.textContent = p.business_name || "";
+
+  card.appendChild(name);
+
+  const details = document.createElement("div");
+
+  details.textContent =
+
+    `${p.city || ""}\n` +
+
+    `${p.services || ""}\n` +
+
+    `${p.phone || ""}\n` +
+
+    `${p.email || ""}\n` +
+
+    `${p.distance.toFixed(1)} km away`;
+
+  details.style.whiteSpace = "pre-line";
+
+  card.appendChild(details);
+
+  status.appendChild(card);
+
+});
+  }, function() {
+
+    status.innerText = language === "fr"
+
+      ? "Autorisez l'accès à votre position pour trouver les plombiers à proximité."
+
+      : "Please allow location access to find plumbers near you.";
+
+  });
+
+};
 </script>
 
 </body>
-
 </html>
