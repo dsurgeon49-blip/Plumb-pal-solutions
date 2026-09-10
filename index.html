@@ -545,59 +545,13 @@ async function findPlumber() {
   }
 
 }
-  function findPlumber() {
 
-    const section =
 
-      document.getElementById("plumberSection");
+      
 
-    const status =
+    
 
-      document.getElementById("locationStatus");
-
-    section.classList.remove("hidden");
-
-    section.scrollIntoView({
-
-      behavior: "smooth"
-
-    });
-
-    if (!navigator.geolocation) {
-
-      status.innerHTML =
-
-        "Location is unavailable. Showing plumbers in your area.";
-
-      return;
-
-    }
-
-    status.innerHTML =
-
-      "📍 Checking your location...";
-
-    navigator.geolocation.getCurrentPosition(
-
-      function(position) {
-
-        status.innerHTML =
-
-          "✅ Location found. Showing available plumbers near you.";
-
-      },
-
-      function(error) {
-
-        status.innerHTML =
-
-          "📍 Location permission was not available. Showing listed plumbers.";
-
-      }
-
-    );
-
-  }
+  
 
   function showAdvice(problem) {
 
