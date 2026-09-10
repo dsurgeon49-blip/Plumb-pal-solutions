@@ -456,7 +456,95 @@
     });
 
   }
+async function findPlumber() {
 
+  const section = document.getElementById("plumberSection");
+
+  section.classList.remove("hidden");
+
+  section.innerHTML = "<h2>Plumbers Near You</h2><p>Loading plumbers...</p>";
+
+  try {
+
+    const response = await fetch(
+
+      SUPABASE_URL + "/rest/v1/plumbers?active=eq.true&select=*",
+
+      {
+
+        headers: {
+
+          apikey: SUPABASE_KEY,
+
+          Authorization: "Bearer " + SUPABASE_KEY
+
+        }
+
+      }
+
+    );
+
+    const plumbers = await response.json();
+
+    if (!response.ok) {
+
+      throw new Error("Could not load plumbers");
+
+    }
+
+    if (plumbers.length === 0) {
+
+      section.innerHTML =
+
+        "<h2>Plumbers Near You</h2><p>No plumbers available yet.</p>";
+
+      return;
+
+    }
+
+    let html = "<h2>Plumbers Near You</h2>";
+
+    plumbers.forEach(function (p) {
+
+      html += `
+
+        <div class="plumber">
+
+          <h3>${p.business_name || "Local Plumber"}</h3>
+
+          <p>
+
+            ${p.verified ? "✅ Verified Plumber" : "⏳ Verification pending"}
+
+          </p>
+
+          <p>📍 ${p.city || ""} ${p.postcode || ""}</p>
+
+          <p>${p.services || ""}</p>
+
+          ${p.phone ? `<a class="button" href="tel:${p.phone}">📞 Call</a>` : ""}
+
+          ${p.email ? `<a class="button secondary" href="mailto:${p.email}">✉️ Email</a>` : ""}
+
+        </div>
+
+      `;
+
+    });
+
+    section.innerHTML = html;
+
+    section.scrollIntoView({ behavior: "smooth" });
+
+  } catch (error) {
+
+    section.innerHTML =
+
+      "<h2>Plumbers Near You</h2><p>Unable to load plumbers at the moment.</p>";
+
+  }
+
+}
   function findPlumber() {
 
     const section =
