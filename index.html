@@ -277,21 +277,52 @@
       Choose the problem that best describes what is happening.
     </p>
 
-    <select id="problem">
-      <option value="">Choose a plumbing problem</option>
-      <option value="leak">Leaking pipe</option>
-      <option value="tap">Dripping tap</option>
-      <option value="toilet">Toilet not flushing</option>
-      <option value="blocked">Blocked sink or drain</option>
-      <option value="pressure">Low water pressure</option>
-      <option value="hotwater">No hot water</option>
-    </select>
+  <select id="problem">
 
-    <button class="action-button" onclick="getAdvice()" id="adviceButton">
-      Get Plumbing Advice
-    </button>
+  <option value="">Choose a plumbing problem</option>
 
-    <div id="advice"></div>
+  <option value="leak">Leaking pipe</option>
+
+  <option value="tap">Dripping tap</option>
+
+  <option value="toilet">Toilet problem</option>
+
+  <option value="blocked">Blocked drain or sink</option>
+
+  <option value="pressure">Low water pressure</option>
+
+  <option value="hotwater">No hot water</option>
+
+  <option value="blockedtoilet">Blocked toilet</option>
+
+  <option value="runningtoilet">Toilet constantly running</option>
+
+  <option value="notflushing">Toilet not flushing</option>
+
+  <option value="burstpipe">Burst pipe</option>
+
+  <option value="frozenpipe">Frozen pipe</option>
+
+  <option value="radiatorleak">Leaking radiator</option>
+
+  <option value="radiatorcold">Radiator not heating</option>
+
+  <option value="showercold">Shower not getting hot</option>
+
+  <option value="showerpressure">Low shower pressure</option>
+
+  <option value="washingmachine">Washing machine connection leak</option>
+
+  <option value="drainsmell">Bad drain smell</option>
+
+  <option value="noisypipes">Noisy pipes / water hammer</option>
+
+  <option value="outsidetap">Outside tap leak</option>
+
+  <option value="waterheater">Water heater / cylinder leak</option>
+
+</select>  
+    
 
     <div class="warning" id="warning">
       PlumbPal provides general guidance only. If you are unsure, there is major
@@ -484,7 +515,34 @@ function getAdvice() {
       "<strong>Low water pressure:</strong><br>Check whether the problem affects one outlet or the whole property. Make sure isolation valves are fully open and check tap aerators for debris. A sudden property-wide pressure drop may require professional investigation.",
 
     hotwater:
-      "<strong>No hot water:</strong><br>Check whether other hot taps are affected. Check the boiler or water heater for warning lights or error messages. Do not remove covers or work on gas or electrical components unless properly qualified."
+      "<strong>No hot water:</strong><br>Check whether other hot taps are affected. Check the boiler or water heater for warning lights or error messages. Do not remove covers or work on gas or electrical components unless properly qualified.",
+    blockedtoilet: "<strong>Blocked toilet:</strong><br>Do not keep flushing if the water level is rising. Try a toilet plunger. If it will not clear, or other drains are backing up, contact a plumber.",
+
+runningtoilet: "<strong>Toilet constantly running:</strong><br>Check whether the flush button or handle is sticking. The fill valve or flush valve may need cleaning, adjustment or replacement.",
+
+notflushing: "<strong>Toilet not flushing:</strong><br>Check that the cistern has water and that the handle or button operates normally. A broken flush mechanism or low cistern level may be the cause.",
+
+burstpipe: "<strong>Burst pipe:</strong><br>Turn off the main water supply immediately. Open a cold tap to relieve pressure and contact a plumber as soon as possible.",
+
+frozenpipe: "<strong>Frozen pipe:</strong><br>Turn off the water supply if you suspect the pipe has split. Warm the area gently. Never use a naked flame. Contact a plumber if the pipe is damaged.",
+
+radiatorleak: "<strong>Leaking radiator:</strong><br>Check where the leak is coming from. If possible, isolate the radiator and protect the floor. A valve, joint or radiator may need repair.",
+
+radiatorcold: "<strong>Radiator not heating:</strong><br>Check that both radiator valves are open. If the top is cold, it may need bleeding. If several radiators are cold, the heating system may need professional attention.",
+
+showercold: "<strong>Shower not getting hot:</strong><br>Check whether other hot taps work normally. If they do, the shower valve or unit may be faulty. Electrical shower faults should be checked by a qualified professional.",
+
+showerpressure: "<strong>Low shower pressure:</strong><br>Clean the shower head and check the hose for restrictions. If pressure is low throughout the property, check the main supply and contact a plumber if necessary.",
+
+washingmachine: "<strong>Washing machine connection leak:</strong><br>Turn off the appliance and close its water valves. Check the inlet and waste hoses for loose connections or damage before using it again.",
+
+drainsmell: "<strong>Bad drain smell:</strong><br>Run water into little-used traps and clean accessible waste fittings. Persistent smells may indicate a blocked drain, failed seal or drainage problem.",
+
+noisypipes: "<strong>Noisy pipes / water hammer:</strong><br>Notice when the noise occurs. Loose pipework, high pressure or fast-closing valves can cause banging. Persistent noise should be checked by a plumber.",
+
+outsidetap: "<strong>Outside tap leak:</strong><br>Check whether the leak is from the spout, spindle or pipe connection. Isolate the supply before dismantling the tap.",
+
+waterheater: "<strong>Water heater / cylinder leak:</strong><br>If water is leaking heavily, isolate the water supply and heating source if safe to do so. Do not work on electrical or pressurised components unless properly qualified.",
 
   };
 
@@ -507,8 +565,36 @@ function getAdvice() {
       "<strong>Faible pression :</strong><br>Vérifiez si le problème concerne un seul robinet ou toute la maison. Vérifiez que les robinets d'arrêt sont ouverts et nettoyez les mousseurs. Une baisse soudaine généralisée peut nécessiter l'intervention d'un professionnel.",
 
     hotwater:
-      "<strong>Pas d'eau chaude :</strong><br>Vérifiez si tous les robinets d'eau chaude sont concernés. Contrôlez les voyants ou messages d'erreur de la chaudière ou du chauffe-eau. N'intervenez pas sur les éléments gaz ou électriques sans qualification appropriée."
+      "<strong>Pas d'eau chaude :</strong><br>Vérifiez si tous les robinets d'eau chaude sont concernés. Contrôlez les voyants ou messages d'erreur de la chaudière ou du chauffe-eau. N'intervenez pas sur les éléments gaz ou électriques sans qualification appropriée.",
 
+blockedtoilet: "<strong>WC bouché :</strong><br>N'actionnez plus la chasse si l'eau monte. Essayez une ventouse. Si le niveau continue de monter ou si plusieurs évacuations sont bouchées, contactez un plombier.",
+
+runningtoilet: "<strong>WC qui coule en permanence :</strong><br>Vérifiez le flotteur et le mécanisme de chasse dans le réservoir. Un joint ou un mécanisme usé peut devoir être remplacé.",
+
+notflushing: "<strong>WC qui ne fonctionne pas :</strong><br>Vérifiez que le réservoir se remplit et que le mécanisme de chasse fonctionne correctement. N'actionnez pas la chasse à plusieurs reprises si le WC est bouché.",
+
+burstpipe: "<strong>Canalisation éclatée :</strong><br>Coupez immédiatement l'arrivée d'eau principale. Ouvrez un robinet pour relâcher la pression et contactez un plombier en urgence.",
+
+frozenpipe: "<strong>Canalisation gelée :</strong><br>Coupez l'eau si vous pensez que la canalisation est endommagée. Réchauffez-la doucement, jamais avec une flamme nue. Une canalisation fissurée nécessite l'intervention d'un plombier.",
+
+radiatorleak: "<strong>Radiateur qui fuit :</strong><br>Fermez les vannes du radiateur si possible et recueillez l'eau. Vérifiez les raccords visibles sans les forcer. Une fuite persistante nécessite une réparation.",
+
+radiatorcold: "<strong>Radiateur qui ne chauffe pas :</strong><br>Vérifiez que les vannes sont ouvertes. Si le radiateur est froid en haut, il peut avoir besoin d'être purgé. Si plusieurs radiateurs restent froids, vérifiez le système de chauffage.",
+
+showercold: "<strong>Douche sans eau chaude :</strong><br>Vérifiez si les autres robinets ont de l'eau chaude. Si le problème concerne uniquement la douche, le mitigeur ou la cartouche peut être en cause.",
+
+showerpressure: "<strong>Faible pression de douche :</strong><br>Nettoyez le pommeau de douche et vérifiez qu'il n'est pas entartré. Si la pression est faible dans toute la maison, le problème peut venir de l'alimentation générale.",
+
+washingmachine: "<strong>Branchement de machine à laver :</strong><br>Vérifiez que les tuyaux d'arrivée et d'évacuation sont correctement raccordés et ne fuient pas. Fermez l'eau avant de modifier les raccordements.",
+
+drainsmell: "<strong>Mauvaise odeur d'évacuation :</strong><br>Faites couler de l'eau dans les évacuations peu utilisées pour remplir les siphons. Si l'odeur persiste, vérifiez les siphons et la ventilation des évacuations.",
+
+noisypipes: "<strong>Canalisations bruyantes / coups de bélier :</strong><br>Des bruits lors de la fermeture des robinets peuvent indiquer un coup de bélier ou des canalisations mal fixées. Une inspection peut être nécessaire si le problème persiste.",
+
+outsidetap: "<strong>Fuite au robinet extérieur :</strong><br>Fermez l'alimentation du robinet si possible. Vérifiez le joint et les raccords. Protégez les robinets extérieurs contre le gel en hiver.",
+
+waterheater: "<strong>Chauffe-eau / ballon :</strong><br>Vérifiez l'alimentation en eau et en énergie. Ne démontez pas les composants électriques ou gaz sauf si vous êtes qualifié. Une fuite ou une panne persistante nécessite un professionnel." 
+  
   };
 
 
