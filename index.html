@@ -741,61 +741,57 @@ findPlumber = async function () {
 ).join("\n\n--------------------\n\n");  
 
 };
-findPlumber = async function () {
 
-  const status = document.getElementById("locationStatus");
 
-  status.innerText = language === "fr"
+  
 
-    ? "Recherche de votre position..."
 
-    : "Finding your location...";
+    
 
-  if (!navigator.geolocation) {
+      
 
-    status.innerText = language === "fr"
+  
 
-      ? "La localisation n'est pas disponible sur cet appareil."
+  
 
-      : "Location services are not available on this device.";
+  
 
-    return;
 
-  }
 
-  navigator.geolocation.getCurrentPosition(async function(position) {
 
-    const userLat = position.coords.latitude;
 
-    const userLon = position.coords.longitude;
 
-    status.innerText = language === "fr"
+                                           
 
-      ? "Recherche des plombiers dans un rayon de 50 km..."
+    
 
-      : "Finding plumbers within 50 km...";
+    
 
-    const { data, error } = await supabaseClient
+  
 
-      .from("plumbers")
+      
 
-      .select("*")
+    
 
-      .eq("verified", true)
+      
 
-      .eq("active", true);
+  
 
-    if (error || !data) {
+    
 
-      status.innerText = language === "fr"
+  
 
-        ? "Impossible de rechercher les plombiers."
+  
 
-        : "Unable to search for plumbers.";
+  
 
-      return;
+        
 
-    }
+    
+
+    
+
+    
 
     function distanceKm(lat1, lon1, lat2, lon2) {
 
