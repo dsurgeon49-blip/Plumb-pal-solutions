@@ -129,7 +129,8 @@
     }
 
     select,
-    input {
+    input,
+    textarea {
       width: 100%;
       padding: 13px;
       border: 1px solid #ccd8e2;
@@ -137,6 +138,90 @@
       margin: 8px 0 12px;
       font-size: 16px;
       background: white;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+      font-family: inherit;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 700;
+      color: #29465f;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 12px;
+    }
+
+    .secondary-button {
+      width: 100%;
+      border: 1px solid #0878d1;
+      border-radius: 10px;
+      background: white;
+      color: #0878d1;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .inline-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-weight: normal;
+      font-size: 14px;
+      margin: 12px 0;
+    }
+
+    .inline-check input {
+      width: auto;
+      margin: 3px 0 0;
+    }
+
+    .privacy-note,
+    .distance {
+      color: #647b90;
+      font-size: 13px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .contact-link {
+      display: inline-block;
+      background: #0878d1;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      padding: 8px 11px;
+      font-weight: bold;
+    }
+
+    .status-message {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #eef7ff;
+    }
+
+    .website-field {
+      position: absolute;
+      left: -10000px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
     }
 
     .action-button {
@@ -212,7 +297,8 @@
     }
 
     @media(max-width: 520px) {
-      .main-buttons {
+      .main-buttons,
+      .form-grid {
         grid-template-columns: 1fr;
       }
 
@@ -278,7 +364,7 @@
     <button
       class="action-button red-button"
       id="emergencyPlumber"
-      onclick="findPlumber()">
+      onclick="prepareEmergencySearch()">
       Find an Emergency Plumber
     </button>
 
@@ -366,17 +452,92 @@
     </h2>
 
     <p id="findText">
-      Find plumbing professionals near your current location.
+      Enter your town or postcode to find verified plumbers within 50 km.
     </p>
+
+    <input
+      id="locationQuery"
+      type="text"
+      autocomplete="postal-code"
+      placeholder="Town or postcode">
+
+    <button class="secondary-button" type="button" onclick="locateMe()" id="locationButton">
+      Use My Current Location
+    </button>
 
     <button
       class="action-button green-button"
-      onclick="findPlumber()"
+      onclick="startStandardSearch()"
       id="findButton">
-      Find Plumbers Near Me
+      Find Plumbers Within 50 km
     </button>
 
     <div id="locationStatus"></div>
+
+  </section>
+
+  <section class="card" id="leadSection">
+
+    <h2 id="leadTitle">📨 Request a Plumber</h2>
+
+    <p id="leadIntro">
+      Tell us what you need and PlumbPal will record your enquiry for nearby verified plumbers.
+    </p>
+
+    <form id="leadForm">
+      <div class="website-field" aria-hidden="true">
+        <label for="leadWebsite">Website</label>
+        <input id="leadWebsite" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="form-grid">
+        <div>
+          <label for="leadName" id="leadNameLabel">Your name</label>
+          <input id="leadName" type="text" autocomplete="name" required maxlength="100">
+        </div>
+        <div>
+          <label for="leadPhone" id="leadPhoneLabel">Telephone</label>
+          <input id="leadPhone" type="tel" autocomplete="tel" required maxlength="40">
+        </div>
+      </div>
+
+      <label for="leadEmail" id="leadEmailLabel">Email (optional)</label>
+      <input id="leadEmail" type="email" autocomplete="email" maxlength="200">
+
+      <label for="leadLocation" id="leadLocationLabel">Town or postcode</label>
+      <input id="leadLocation" type="text" autocomplete="postal-code" required maxlength="120">
+
+      <label for="leadProblem" id="leadProblemLabel">Plumbing problem</label>
+      <select id="leadProblem" required>
+        <option value="">Choose a plumbing problem</option>
+        <option value="leaking pipe">Leaking pipe</option>
+        <option value="blocked drain or sink">Blocked drain or sink</option>
+        <option value="toilet problem">Toilet problem</option>
+        <option value="no hot water">No hot water</option>
+        <option value="low water pressure">Low water pressure</option>
+        <option value="other">Other plumbing problem</option>
+      </select>
+
+      <label for="leadDetails" id="leadDetailsLabel">What is happening?</label>
+      <textarea id="leadDetails" required maxlength="1500" placeholder="Briefly describe the problem"></textarea>
+
+      <label class="inline-check">
+        <input id="leadEmergency" type="checkbox">
+        <span id="leadEmergencyText">This is an emergency</span>
+      </label>
+
+      <label class="inline-check">
+        <input id="leadConsent" type="checkbox" required>
+        <span id="leadConsentText">I agree that PlumbPal may use these details to handle this enquiry and share it with suitable nearby plumbers.</span>
+      </label>
+
+      <p class="privacy-note" id="privacyNote">
+        Enquiry details are private and kept for no longer than 90 days. They are not used for unrelated marketing.
+      </p>
+
+      <button class="action-button" type="submit" id="leadSubmit">Send Enquiry</button>
+      <div id="leadStatus" role="status" aria-live="polite"></div>
+    </form>
 
   </section>
 
@@ -412,6 +573,14 @@ const SUPABASE_KEY = "sb_publishable_QMFf76v1plThZsY_4v8o7Q_Rl-9OnL0";
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
   let language = "en";
+  let searchLocation = null;
+  let matchedPlumbers = [];
+  let emergencySearch = false;
+
+  function translated(english, french) {
+    return language === "fr" ? french : english;
+  }
+
   function setLanguage(lang) {
 
   language = lang;
@@ -482,10 +651,38 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
       "📍 Trouver un plombier local";
 
     document.getElementById("findText").innerText =
-      "Trouvez des professionnels de la plomberie près de votre position.";
+      "Entrez votre ville ou code postal pour trouver des plombiers vérifiés dans un rayon de 50 km.";
 
     document.getElementById("findButton").innerText =
-      "Trouver des plombiers près de moi";
+      "Trouver des plombiers dans un rayon de 50 km";
+
+    document.getElementById("locationQuery").placeholder = "Ville ou code postal";
+    document.getElementById("locationButton").innerText = "Utiliser ma position actuelle";
+    document.getElementById("leadTitle").innerText = "📨 Demander un plombier";
+    document.getElementById("leadIntro").innerText =
+      "Décrivez votre besoin et PlumbPal enregistrera votre demande pour des plombiers vérifiés à proximité.";
+    document.getElementById("leadNameLabel").innerText = "Votre nom";
+    document.getElementById("leadPhoneLabel").innerText = "Téléphone";
+    document.getElementById("leadEmailLabel").innerText = "E-mail (facultatif)";
+    document.getElementById("leadLocationLabel").innerText = "Ville ou code postal";
+    document.getElementById("leadProblemLabel").innerText = "Problème de plomberie";
+    document.getElementById("leadDetailsLabel").innerText = "Que se passe-t-il ?";
+    document.getElementById("leadDetails").placeholder = "Décrivez brièvement le problème";
+    document.getElementById("leadEmergencyText").innerText = "C'est une urgence";
+    document.getElementById("leadConsentText").innerText =
+      "J'accepte que PlumbPal utilise ces informations pour traiter cette demande et les transmette à des plombiers adaptés à proximité.";
+    document.getElementById("privacyNote").innerText =
+      "Les informations de la demande restent privées et sont conservées pendant 90 jours maximum. Elles ne sont pas utilisées pour un marketing sans rapport.";
+    document.getElementById("leadSubmit").innerText = "Envoyer la demande";
+    document.getElementById("leadProblem").innerHTML = `
+      <option value="">Choisissez un problème de plomberie</option>
+      <option value="leaking pipe">Fuite de canalisation</option>
+      <option value="blocked drain or sink">Évacuation ou évier bouché</option>
+      <option value="toilet problem">Problème de WC</option>
+      <option value="no hot water">Pas d'eau chaude</option>
+      <option value="low water pressure">Faible pression d'eau</option>
+      <option value="other">Autre problème de plomberie</option>
+    `;
 
     document.getElementById("professionalTitle").innerText =
       "🧰 Pour les professionnels";
@@ -634,58 +831,289 @@ waterheater: "<strong>Chauffe-eau / ballon :</strong><br>Vérifiez l'alimentatio
 }
 
 
-async function findPlumber() {
-  const status = document.getElementById("locationStatus");
+function haversineDistance(lat1, lon1, lat2, lon2) {
+  const earthRadiusKm = 6371;
+  const toRadians = value => value * Math.PI / 180;
+  const latitudeDifference = toRadians(lat2 - lat1);
+  const longitudeDifference = toRadians(lon2 - lon1);
+  const a = Math.sin(latitudeDifference / 2) ** 2 +
+    Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
+    Math.sin(longitudeDifference / 2) ** 2;
+  return earthRadiusKm * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
 
-  status.innerText = language === "fr"
-    ? "Recherche des plombiers PlumbPal vérifiés..."
-    : "Finding verified PlumbPal plumbers...";
+async function geocodeLocation(query) {
+  const response = await fetch(
+    `https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(query)}&limit=1`
+  );
+  if (!response.ok) throw new Error("Location service unavailable");
+  const result = await response.json();
+  if (!result.features || result.features.length === 0) {
+    throw new Error("Location not found");
+  }
+  const feature = result.features[0];
+  return {
+    latitude: feature.geometry.coordinates[1],
+    longitude: feature.geometry.coordinates[0],
+    label: feature.properties.label || query
+  };
+}
 
-  try {
-    const { data, error } = await supabaseClient
-      .from("plumbers")
-      .select("*")
-      .eq("verified", true)
-      .eq("active", true);
-
-    if (error) throw error;
-
-    if (!data || data.length === 0) {
-      status.innerText = language === "fr"
-        ? "Aucun plombier vérifié disponible."
-        : "No verified plumbers available.";
+function currentPosition() {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) {
+      reject(new Error("Geolocation unavailable"));
       return;
     }
-
-    status.innerHTML = "";
-
-    data.forEach(function(plumber) {
-      const card = document.createElement("div");
-      card.className = "plumber-card";
-
-      const name = document.createElement("strong");
-      name.textContent = plumber.business_name || "PlumbPal plumber";
-      card.appendChild(name);
-
-      const details = document.createElement("div");
-      details.textContent = [
-        plumber.city,
-        plumber.services,
-        plumber.phone,
-        plumber.email
-      ].filter(Boolean).join("\n");
-      details.style.whiteSpace = "pre-line";
-      card.appendChild(details);
-
-      status.appendChild(card);
+    navigator.geolocation.getCurrentPosition(resolve, reject, {
+      enableHighAccuracy: false,
+      timeout: 10000,
+      maximumAge: 300000
     });
+  });
+}
+
+async function fetchNearbyPlumbers(location, emergencyOnly) {
+  const { data, error } = await supabaseClient
+    .from("plumbers")
+    .select("*")
+    .eq("verified", true)
+    .eq("active", true);
+
+  if (error) throw error;
+
+  return (data || [])
+    .filter(plumber => Number.isFinite(Number(plumber.latitude)) && Number.isFinite(Number(plumber.longitude)))
+    .filter(plumber => !emergencyOnly || plumber.emergency_callouts === true)
+    .map(plumber => ({
+      ...plumber,
+      distance: haversineDistance(
+        location.latitude,
+        location.longitude,
+        Number(plumber.latitude),
+        Number(plumber.longitude)
+      )
+    }))
+    .filter(plumber => plumber.distance <= 50)
+    .sort((first, second) => first.distance - second.distance);
+}
+
+function renderPlumbers(plumbers) {
+  const status = document.getElementById("locationStatus");
+  status.innerHTML = "";
+
+  if (plumbers.length === 0) {
+    status.className = "status-message";
+    status.textContent = translated(
+      "No suitable verified plumber was found within 50 km. You can still send an enquiry and we will keep the location with it.",
+      "Aucun plombier vérifié adapté n'a été trouvé dans un rayon de 50 km. Vous pouvez tout de même envoyer une demande."
+    );
+    return;
+  }
+
+  const summary = document.createElement("p");
+  summary.className = "status-message";
+  summary.textContent = translated(
+    `${plumbers.length} verified plumber${plumbers.length === 1 ? "" : "s"} found within 50 km.`,
+    `${plumbers.length} plombier${plumbers.length === 1 ? " vérifié trouvé" : "s vérifiés trouvés"} dans un rayon de 50 km.`
+  );
+  status.appendChild(summary);
+
+  plumbers.forEach(plumber => {
+    const card = document.createElement("div");
+    card.className = "plumber-card";
+
+    const name = document.createElement("strong");
+    name.textContent = plumber.business_name || "PlumbPal plumber";
+    card.appendChild(name);
+
+    const details = document.createElement("div");
+    details.textContent = [plumber.city, plumber.postcode, plumber.services]
+      .filter(Boolean)
+      .join(" · ");
+    card.appendChild(details);
+
+    const distance = document.createElement("div");
+    distance.className = "distance";
+    distance.textContent = translated(
+      `${plumber.distance.toFixed(1)} km away`,
+      `À ${plumber.distance.toFixed(1)} km`
+    );
+    card.appendChild(distance);
+
+    const actions = document.createElement("div");
+    actions.className = "contact-links";
+
+    if (emergencySearch && plumber.phone) {
+      const call = document.createElement("a");
+      call.className = "contact-link";
+      call.href = `tel:${String(plumber.phone).replace(/[^+\d]/g, "")}`;
+      call.textContent = translated("Call now", "Appeler");
+      actions.appendChild(call);
+    }
+
+    const request = document.createElement("button");
+    request.type = "button";
+    request.className = "contact-link";
+    request.style.border = "none";
+    request.style.cursor = "pointer";
+    request.textContent = translated("Request help", "Demander de l'aide");
+    request.addEventListener("click", () => {
+      document.getElementById("leadEmergency").checked = emergencySearch;
+      document.getElementById("leadSection").scrollIntoView({ behavior: "smooth" });
+    });
+    actions.appendChild(request);
+    card.appendChild(actions);
+    status.appendChild(card);
+  });
+}
+
+async function searchFromLocation(location) {
+  searchLocation = location;
+  const status = document.getElementById("locationStatus");
+  status.className = "status-message";
+  status.textContent = translated(
+    "Finding verified PlumbPal plumbers...",
+    "Recherche des plombiers PlumbPal vérifiés..."
+  );
+
+  try {
+    matchedPlumbers = await fetchNearbyPlumbers(location, emergencySearch);
+    renderPlumbers(matchedPlumbers);
   } catch (error) {
     console.error("Unable to load plumbers", error);
-    status.innerText = language === "fr"
-      ? "Impossible de charger les plombiers pour le moment."
-      : "Unable to load plumbers right now.";
+    status.textContent = translated(
+      "Unable to load plumbers right now. Please try again.",
+      "Impossible de charger les plombiers pour le moment. Veuillez réessayer."
+    );
   }
 }
+
+async function findPlumber() {
+  const query = document.getElementById("locationQuery").value.trim();
+  const status = document.getElementById("locationStatus");
+  if (!query) {
+    status.className = "status-message";
+    status.textContent = translated(
+      "Enter your town or postcode first.",
+      "Entrez d'abord votre ville ou code postal."
+    );
+    return;
+  }
+
+  status.className = "status-message";
+  status.textContent = translated("Finding that location...", "Recherche de ce lieu...");
+  try {
+    const location = await geocodeLocation(query);
+    document.getElementById("leadLocation").value = query;
+    await searchFromLocation(location);
+  } catch (error) {
+    console.error("Unable to find location", error);
+    status.textContent = translated(
+      "We could not find that location. Try a French town or postcode.",
+      "Ce lieu est introuvable. Essayez une ville ou un code postal français."
+    );
+  }
+}
+
+function startStandardSearch() {
+  emergencySearch = false;
+  findPlumber();
+}
+
+function prepareEmergencySearch() {
+  emergencySearch = true;
+  document.getElementById("leadEmergency").checked = true;
+  document.getElementById("findTitle").scrollIntoView({ behavior: "smooth" });
+  const status = document.getElementById("locationStatus");
+  status.className = "status-message";
+  status.textContent = translated(
+    "Enter your town or postcode, or use your current location, to find emergency plumbers.",
+    "Entrez votre ville ou code postal, ou utilisez votre position actuelle, pour trouver des plombiers d'urgence."
+  );
+}
+
+async function locateMe() {
+  const status = document.getElementById("locationStatus");
+  status.className = "status-message";
+  status.textContent = translated("Requesting your location...", "Demande de votre position...");
+  try {
+    const position = await currentPosition();
+    await searchFromLocation({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+      label: translated("Current location", "Position actuelle")
+    });
+  } catch (error) {
+    console.error("Unable to use current location", error);
+    status.textContent = translated(
+      "Location access did not work. Enter your town or postcode instead.",
+      "L'accès à votre position n'a pas fonctionné. Entrez votre ville ou code postal."
+    );
+  }
+}
+
+document.getElementById("leadForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  const status = document.getElementById("leadStatus");
+  const submit = document.getElementById("leadSubmit");
+
+  if (document.getElementById("leadWebsite").value) return;
+
+  const lastSubmission = Number(localStorage.getItem("plumbpalLastEnquiry") || 0);
+  if (Date.now() - lastSubmission < 60000) {
+    status.className = "status-message";
+    status.textContent = translated(
+      "Please wait a minute before sending another enquiry.",
+      "Veuillez attendre une minute avant d'envoyer une autre demande."
+    );
+    return;
+  }
+
+  submit.disabled = true;
+  status.className = "status-message";
+  status.textContent = translated("Sending your enquiry...", "Envoi de votre demande...");
+
+  try {
+    const locationLabel = document.getElementById("leadLocation").value.trim();
+    const location = await geocodeLocation(locationLabel);
+    const emergency = document.getElementById("leadEmergency").checked;
+    const nearby = await fetchNearbyPlumbers(location, emergency);
+
+    const payload = {
+      customer_name: document.getElementById("leadName").value.trim(),
+      phone: document.getElementById("leadPhone").value.trim(),
+      email: document.getElementById("leadEmail").value.trim() || null,
+      location_label: locationLabel,
+      latitude: location.latitude,
+      longitude: location.longitude,
+      problem: document.getElementById("leadProblem").value,
+      details: document.getElementById("leadDetails").value.trim(),
+      emergency,
+      matched_plumber_ids: nearby.map(plumber => plumber.id),
+      preferred_language: language,
+      consent: document.getElementById("leadConsent").checked
+    };
+
+    const { error } = await supabaseClient.from("leads").insert(payload);
+    if (error) throw error;
+
+    localStorage.setItem("plumbpalLastEnquiry", String(Date.now()));
+    event.target.reset();
+    status.textContent = translated(
+      "Thank you. Your enquiry has been received by PlumbPal.",
+      "Merci. Votre demande a bien été reçue par PlumbPal."
+    );
+  } catch (error) {
+    console.error("Unable to submit enquiry", error);
+    status.textContent = translated(
+      "Your enquiry could not be sent. Check the location and try again.",
+      "Votre demande n'a pas pu être envoyée. Vérifiez le lieu et réessayez."
+    );
+  } finally {
+    submit.disabled = false;
+  }
+});
 
 
 function professionalSignup() {
