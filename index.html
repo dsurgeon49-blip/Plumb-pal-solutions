@@ -167,6 +167,10 @@
       margin-top: 14px;
     }
 
+    #adviceButton {
+      margin-top: 12px;
+    }
+
     #locationStatus {
       margin-top: 12px;
       font-size: 14px;
@@ -336,7 +340,15 @@
   <option value="waterheater">Water heater / cylinder leak</option>
 
 </select>  
-    
+
+    <button
+      class="action-button"
+      id="adviceButton"
+      onclick="getAdvice()">
+      Get Advice
+    </button>
+
+    <div id="advice"></div>
 
     <div class="warning" id="warning">
       PlumbPal provides general guidance only. If you are unsure, there is major
