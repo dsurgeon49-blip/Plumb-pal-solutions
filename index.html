@@ -1053,43 +1053,6 @@ async function locateMe() {
   }
 }
 
-async function notifyPlumbPalByEmail(payload, location, nearbyPlumbers) {
-  const notificationInbox = ["dsurgeon49", "gmail.com"].join("@");
-  const notification = {
-    _subject: payload.emergency
-      ? "URGENT PlumbPal customer enquiry"
-      : "New PlumbPal customer enquiry",
-    _template: "table",
-    customer_name: payload.customer_name,
-    phone: payload.phone,
-    email: payload.email || "Not provided",
-    location: location.label || payload.location_label,
-    problem: payload.problem,
-    details: payload.details,
-    emergency: payload.emergency ? "Yes" : "No",
-    preferred_language: payload.preferred_language,
-    matched_plumbers: nearbyPlumbers
-      .map(plumber => plumber.business_name || "PlumbPal plumber")
-      .join(", ") || "None within 50 km"
-  };
-
-  const response = await fetch(
-    `https://formsubmit.co/ajax/${encodeURIComponent(notificationInbox)}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify(notification)
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error("Notification service unavailable");
-  }
-}
-
 document.getElementById("leadForm").addEventListener("submit", async event => {
   event.preventDefault();
   const status = document.getElementById("leadStatus");
@@ -1134,12 +1097,6 @@ document.getElementById("leadForm").addEventListener("submit", async event => {
 
     const { error } = await supabaseClient.from("leads").insert(payload);
     if (error) throw error;
-
-    try {
-      await notifyPlumbPalByEmail(payload, location, nearby);
-    } catch (notificationError) {
-      console.error("Enquiry saved but email notification failed", notificationError);
-    }
 
     localStorage.setItem("plumbpalLastEnquiry", String(Date.now()));
     event.target.reset();
